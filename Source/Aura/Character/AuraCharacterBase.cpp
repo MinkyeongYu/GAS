@@ -3,12 +3,17 @@
 
 #include "Aura/Character/AuraCharacterBase.h"
 
+#include "Components/SkeletalMeshComponent.h"
 
 AAuraCharacterBase::AAuraCharacterBase()
 {
  	
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
+	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>("Weapon");
+	// GetMesh ÈÄ, Weapon ºÎÂøÇÒ ½ºÄÌ·¹Å» ¸Þ½¬ ¼ÒÄÏ ÀÌ¸§¿¡ ºÎÂø
+	Weapon->SetupAttachment(GetMesh(), FName("WeaponHandSocket"));
+	Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
 void AAuraCharacterBase::BeginPlay()
@@ -16,16 +21,3 @@ void AAuraCharacterBase::BeginPlay()
 	Super::BeginPlay();
 	
 }
-
-void AAuraCharacterBase::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-
-void AAuraCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-}
-
