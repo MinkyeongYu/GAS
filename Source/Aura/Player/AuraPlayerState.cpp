@@ -1,18 +1,14 @@
 // Copyright Minkyeong
 
 
-#include "Aura/Character/AuraEnemy.h"
+#include "Aura/Player/AuraPlayerState.h"
 
-#include "Aura/Aura.h"
 #include "Aura/AbilitySystem/AuraAttributeSet.h"
 #include "Aura/AbilitySystem/AuraAbilitySystemComponent.h"
 
-AAuraEnemy::AAuraEnemy()
+AAuraPlayerState::AAuraPlayerState()
 {
-	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
-
-	GetMesh()->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
-	Weapon->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
+	NetUpdateFrequency = 100.f;
 
 	AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
@@ -23,27 +19,12 @@ AAuraEnemy::AAuraEnemy()
 	//				Multi-player, PlayerControlled
 	// Full : Gameplay Effects are replicated to all clients. 
 	//				SinglePlayer
-	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
 
 	AttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("AttributeSet");
 }
 
-void AAuraEnemy::HighlightActor()
+UAbilitySystemComponent* AAuraPlayerState::GetAbilitySystemComponent() const
 {
-	GetMesh()->SetRenderCustomDepth(true);
-	Weapon->SetRenderCustomDepth(true);
-}
-
-void AAuraEnemy::UnHighlightActor()
-{
-	GetMesh()->SetRenderCustomDepth(false);
-	Weapon->SetRenderCustomDepth(false);
-}
-
-void AAuraEnemy::BeginPlay()
-{
-	Super::BeginPlay();
-
-	/* InOwnerActor = this, InAvatarActor = this */
-	AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	return AbilitySystemComponent;
 }
