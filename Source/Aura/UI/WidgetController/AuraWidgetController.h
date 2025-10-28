@@ -45,6 +45,7 @@ class AURA_API UAuraWidgetController : public UObject
 	
 public:
 	virtual void BroadcastInitialValues();
+	virtual void BindCallbacksToDependencies();
 
 public:
 	// FWidgetControllerParams을 통해 PC, PS, ASC, AS 설정
