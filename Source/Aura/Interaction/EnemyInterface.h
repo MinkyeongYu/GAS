@@ -1,4 +1,4 @@
-// Copyright Minkyeong
+ï»¿// Copyright Minkyeong
 
 #pragma once
 
@@ -21,7 +21,7 @@ class AURA_API IEnemyInterface
 	GENERATED_BODY()
 
 public:
-	// ¼ø¼ö °¡»ó ÇÔ¼ö
+	// ìˆœìˆ˜ ê°€ìƒ í•¨ìˆ˜
 	virtual void HighlightActor() = 0;
 	virtual void UnHighlightActor() = 0;
 };
